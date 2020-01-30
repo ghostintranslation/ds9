@@ -39,11 +39,11 @@ AudioOutputUSB  usb1;
 AudioConnection patchCord6(mixer, 0, usb1, 0);
 AudioConnection patchCord7(mixer, 0, usb1, 1);
 
-AudioControlSGTL5000 sgtl5000_1;
+AudioControlSGTL5000 audioBoard;
 
 void setup() {
   mixer.gain(0, 1);
-  mixer.gain(1, 0.7);
+  mixer.gain(1, 2);
   mixer.gain(2, 0.5);
 
   Serial.begin(115200);
@@ -53,10 +53,10 @@ void setup() {
   MIDI.setHandleNoteOn(onNoteOn);
   usbMIDI.setHandleNoteOn(onNoteOn);
 
-  AudioMemory(40);
+  AudioMemory(60);
 
-  sgtl5000_1.enable();
-  sgtl5000_1.volume(0.5);
+  audioBoard.enable();
+  audioBoard.volume(0.5);
 
 
   while (!Serial && millis() < 2500); // wait for serial monitor
@@ -73,30 +73,25 @@ void setup() {
 void loop() {
   MIDI.read();
   usbMIDI.read();
-
-  if (clock_count >= 30) {
-  }
   
   // Leveraging the overload
   if (clock_count >= interval_time) {
-      digitalWrite(ledPin, LOW);
+    
+    digitalWrite(ledPin, LOW);
 
     // Kick
     byte kickPitch = map(analogRead(A0), 0, 1023, 0, 255);
     if(kick.getPitch() != kickPitch){
-      Serial.println(kickPitch);
       kick.setPitch(kickPitch);
     }
    
     byte kickTone = map(analogRead(A1), 0, 1023, 0, 255);
     if(kick.getTone() != kickTone){
-      Serial.println(kickTone);
       kick.setTone(kickTone);
     }
     
     byte kickDecay = map(analogRead(A2), 0, 1023, 0, 255);
     if(kick.getDecay() != kickDecay){
-      Serial.println(kickDecay);
       kick.setDecay(kickDecay);
     }
 
