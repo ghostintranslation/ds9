@@ -21,7 +21,6 @@ Height: 3U / 128.5mm
 Width: 12HP / 60mm
 
 ## Getting Started
-## Getting Started
 
 ### Prerequisites
 
