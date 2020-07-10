@@ -18,7 +18,7 @@ NOTE: This is a work in progress.
 
 Height: 3U / 128.5mm
 
-Width: 8HP / 60mm
+Width: 12HP / 60mm
 
 ## Getting Started
 ## Getting Started
