@@ -3,18 +3,18 @@
 
 #include <Audio.h>
 
-
+/*
 // GUItool: begin automatically generated code
-//AudioSynthSimpleDrum     kick;          //xy=228,217
-//AudioSynthSimpleDrum     click;          //xy=229,165
-//AudioMixer4              mixer1;         //xy=422,193
-//AudioOutputI2S           i2s1;           //xy=598,199
-//AudioConnection          patchCord1(kick, 0, mixer1, 1);
-//AudioConnection          patchCord2(click, 0, mixer1, 0);
-//AudioConnection          patchCord3(mixer1, 0, i2s1, 0);
-//AudioConnection          patchCord4(mixer1, 0, i2s1, 1);
+AudioSynthSimpleDrum     kick;          //xy=228,217
+AudioSynthSimpleDrum     click;          //xy=229,165
+AudioMixer4              mixer1;         //xy=422,193
+AudioOutputI2S           i2s1;           //xy=598,199
+AudioConnection          patchCord1(kick, 0, mixer1, 1);
+AudioConnection          patchCord2(click, 0, mixer1, 0);
+AudioConnection          patchCord3(mixer1, 0, i2s1, 0);
+AudioConnection          patchCord4(mixer1, 0, i2s1, 1);
 // GUItool: end automatically generated code
-
+*/
 
 /*
  * Kick

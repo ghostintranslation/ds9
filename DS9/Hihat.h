@@ -2,26 +2,26 @@
 #define Hihat_h
 
 #include <Audio.h>
-
+/*
 // GUItool: begin automatically generated code
-//AudioSynthWaveformSine   modulator;          //xy=55,223
-//AudioSynthNoiseWhite     noise;         //xy=57,173
-//AudioSynthWaveformSineModulated sine;       //xy=173,259
-//AudioFilterBiquad        noiseFilter;        //xy=179,186
-//AudioMixer4              mixer;         //xy=309,267
-//AudioEffectEnvelope      envelope;      //xy=447,267
-//AudioFilterBiquad        filter;        //xy=581,264
-//AudioOutputI2S           i2s1;           //xy=733,264
-//AudioConnection          patchCord1(modulator, sine);
-//AudioConnection          patchCord2(noise, noiseFilter);
-//AudioConnection          patchCord3(sine, 0, mixer, 1);
-//AudioConnection          patchCord4(noiseFilter, 0, mixer, 0);
-//AudioConnection          patchCord5(mixer, envelope);
-//AudioConnection          patchCord6(envelope, filter);
-//AudioConnection          patchCord7(filter, 0, i2s1, 0);
-//AudioConnection          patchCord8(filter, 0, i2s1, 1);
+AudioSynthWaveformSine   modulator;          //xy=55,223
+AudioSynthNoiseWhite     noise;         //xy=57,173
+AudioSynthWaveformSineModulated sine;       //xy=173,259
+AudioFilterBiquad        noiseFilter;        //xy=179,186
+AudioMixer4              mixer;         //xy=309,267
+AudioEffectEnvelope      envelope;      //xy=447,267
+AudioFilterBiquad        filter;        //xy=581,264
+AudioOutputI2S           i2s1;           //xy=733,264
+AudioConnection          patchCord1(modulator, sine);
+AudioConnection          patchCord2(noise, noiseFilter);
+AudioConnection          patchCord3(sine, 0, mixer, 1);
+AudioConnection          patchCord4(noiseFilter, 0, mixer, 0);
+AudioConnection          patchCord5(mixer, envelope);
+AudioConnection          patchCord6(envelope, filter);
+AudioConnection          patchCord7(filter, 0, i2s1, 0);
+AudioConnection          patchCord8(filter, 0, i2s1, 1);
 // GUItool: end automatically generated code
-
+*/
 
 
 /*
