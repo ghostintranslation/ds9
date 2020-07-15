@@ -74,9 +74,7 @@ inline DS9::DS9(){
   this->hihat = new Hihat();
   this->snare = new Snare();
   
-  // 0 = empty, 1 = button, 2 = potentiometer, 3 = encoder
-  byte controls[9] = {2,2,2, 2,2,2, 2,2,2};
-  this->device = new Motherboard9(controls);
+  this->device = Motherboard9::getInstance();
   
   this->output = new AudioMixer4();
   this->output->gain(0, 1 );
@@ -101,7 +99,9 @@ inline static DS9 *DS9::getInstance()    {
  * Init
  */
 inline void DS9::init(){
-  this->device->init();
+  // 0 = empty, 1 = button, 2 = potentiometer, 3 = encoder
+  byte controls[9] = {2,2,2, 2,2,2, 2,2,2};
+  this->device->init(controls);
 
   MIDI.setHandleNoteOn(noteOn);
   MIDI.begin(MIDI_CHANNEL_OMNI);
