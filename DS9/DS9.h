@@ -63,7 +63,7 @@ class DS9{
     AudioMixer4 * getOutput();
 };
 
-// initialisation du pointeur de singleton à zéro
+// Singleton pre init
 DS9 * DS9::instance = nullptr;
 
 /**
@@ -268,11 +268,11 @@ inline static void DS9::noteOn(byte channel, byte note, byte velocity){
     break;
     case 61:
       getInstance()->hihat->noteOn();
-      getInstance()->device->setDisplay(1, 4);
+      getInstance()->device->setDisplay(2, 4);
     break;
     case 62:
       getInstance()->snare->noteOn();
-      getInstance()->device->setDisplay(2, 4);
+      getInstance()->device->setDisplay(1, 4);
     break;
   }
 }
