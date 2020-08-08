@@ -262,17 +262,17 @@ inline void DS9::update(){
  */
 inline static void DS9::noteOn(byte channel, byte note, byte velocity){
   switch(note){
-    case 60:
+    case 36:
       getInstance()->kick->noteOn();
-      getInstance()->device->setDisplay(0, 4);
+      getInstance()->device->setLED(0, 4);
     break;
-    case 61:
-      getInstance()->hihat->noteOn();
-      getInstance()->device->setDisplay(2, 4);
-    break;
-    case 62:
+    case 39:
       getInstance()->snare->noteOn();
-      getInstance()->device->setDisplay(1, 4);
+      getInstance()->device->setLED(1, 4);
+    break;
+    case 42:
+      getInstance()->hihat->noteOn();
+      getInstance()->device->setLED(2, 4);
     break;
   }
 }
