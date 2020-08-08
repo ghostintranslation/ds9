@@ -249,9 +249,6 @@ inline void Snare::setDecay(byte decay){
 inline void Snare::setTone(byte tone){
   this->tone = tone;
 
-  float mappedTone = (float)map((float)tone, (float)0, (float)255, (float)0.0, (float)1.0);
-  float mappedReverseTone = (float)map((float)tone, (float)0, (float)255, (float)1.0, (float)0.0);
-
   unsigned int mappedFilter = map(tone, 128, 255, 300, 3000);
   this->filter->frequency(mappedFilter);
 }

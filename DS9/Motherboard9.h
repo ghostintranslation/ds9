@@ -173,7 +173,7 @@ inline Motherboard9::Motherboard9(){
 /**
  * Singleton instance
  */
-inline static Motherboard9 *Motherboard9::getInstance()    {
+inline Motherboard9 *Motherboard9::getInstance()    {
   if (!instance)
      instance = new Motherboard9;
   return instance;
@@ -538,7 +538,7 @@ inline void Motherboard9::readPotentiometer(byte inputIndex){
   if(this->potentiometersReadings[inputIndex] == 255){
     this->potentiometers[inputIndex] = this->potentiometersTemp[inputIndex] / 255; 
     this->potentiometers[inputIndex] = map(this->potentiometers[inputIndex], this->getAnalogMinValue(), this->getAnalogMaxValue(), 0, 1023);
-    this->potentiometers[inputIndex] = constrain(this->potentiometers[inputIndex], 0, 1023);
+    this->potentiometers[inputIndex] = constrain(this->potentiometers[inputIndex], (unsigned int)0, (unsigned int)1023);
     this->potentiometersReadings[inputIndex] = 0;
     this->potentiometersTemp[inputIndex] = 0;
   }

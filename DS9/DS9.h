@@ -89,7 +89,7 @@ inline DS9::DS9(){
 /**
  * Singleton instance
  */
-inline static DS9 *DS9::getInstance()    {
+inline DS9 *DS9::getInstance()    {
   if (!instance)
      instance = new DS9;
   return instance;
@@ -260,7 +260,7 @@ inline void DS9::update(){
 /**
  * Note on
  */
-inline static void DS9::noteOn(byte channel, byte note, byte velocity){
+inline void DS9::noteOn(byte channel, byte note, byte velocity){
   switch(note){
     case 36:
       getInstance()->kick->noteOn();
