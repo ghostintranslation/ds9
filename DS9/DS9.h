@@ -23,28 +23,10 @@ class DS9{
     
     // Kick
     Kick *kick;
-    byte kickTuneInputIndex = 0;
-    byte kickColorInputIndex = 3;
-    byte kickDecayInputIndex = 6;
-    int kickTune = 0;
-    int kickColor = 0;
-    int kickDecay = 0;
     // Snare
     Snare *snare;
-    byte snareTuneInputIndex = 1;
-    byte snareColorInputIndex = 4;
-    byte snareDecayInputIndex = 7;
-    int snareTune = 0;
-    int snareColor = 0;
-    int snareDecay = 0;
     // Hihat
     Hihat *hihat;
-    byte hihatTuneInputIndex = 2;
-    byte hihatColorInputIndex = 5;
-    byte hihatDecayInputIndex = 8;
-    int hihatTune = 0;
-    int hihatColor = 0;
-    int hihatDecay = 0;
     
     // Output
     AudioMixer4 *output;
@@ -61,6 +43,11 @@ class DS9{
     void update();
     static void noteOn(byte channel, byte note, byte velocity);
     AudioMixer4 * getOutput();
+
+    // Callbacks
+    static void onTuneChange(byte inputIndex, unsigned int value, int diffToPrevious);
+    static void onColorChange(byte inputIndex, unsigned int value, int diffToPrevious);
+    static void onDecayChange(byte inputIndex, unsigned int value, int diffToPrevious);
 };
 
 // Singleton pre init
@@ -106,6 +93,17 @@ inline void DS9::init(){
   MIDI.setHandleNoteOn(noteOn);
   MIDI.begin(MIDI_CHANNEL_OMNI);
   usbMIDI.setHandleNoteOn(noteOn);
+
+  // Device callbacks
+  this->device->setHandlePotentiometerChange(0, onTuneChange);
+  this->device->setHandlePotentiometerChange(1, onTuneChange);
+  this->device->setHandlePotentiometerChange(2, onTuneChange);
+  this->device->setHandlePotentiometerChange(3, onColorChange);
+  this->device->setHandlePotentiometerChange(4, onColorChange);
+  this->device->setHandlePotentiometerChange(5, onColorChange);
+  this->device->setHandlePotentiometerChange(6, onDecayChange);
+  this->device->setHandlePotentiometerChange(7, onDecayChange);
+  this->device->setHandlePotentiometerChange(8, onDecayChange);
 }
 
 /**
@@ -116,145 +114,6 @@ inline void DS9::update(){
   
   MIDI.read();
   usbMIDI.read();
-  
-  if(this->clockUpdate > this->updateMillis){
-    // Kick Tune
-    byte kickTune = map(
-      this->device->getInput(
-      this->kickTuneInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->kickTune != kickTune){
-      this->kickTune = kickTune;
-      this->kick->setPitch(kickTune);
-    }
-    
-    // Kick Color
-    byte kickColor = map(
-      this->device->getInput(
-      this->kickColorInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->kickColor != kickColor){
-      this->kickColor = kickColor;
-      this->kick->setTone(kickColor);
-    } 
-
-    // Kick Decay
-    byte kickDecay = map(
-      this->device->getInput(
-      this->kickDecayInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->kickDecay != kickDecay){
-      this->kickDecay = kickDecay;
-      this->kick->setDecay(kickDecay);
-    }
-
-    // Hihat Tune
-    byte hihatTune = map(
-      this->device->getInput(
-      this->hihatTuneInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->hihatTune != hihatTune){
-      this->hihatTune = hihatTune;
-      this->hihat->setPitch(hihatTune);
-    }
-    
-    // Hihat Color
-    byte hihatColor = map(
-      this->device->getInput(
-      this->hihatColorInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->hihatColor != hihatColor){
-      this->hihatColor = hihatColor;
-      this->hihat->setTone(hihatColor);
-    } 
-
-    // Hihat Decay
-    byte hihatDecay = map(
-      this->device->getInput(
-      this->hihatDecayInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->hihatDecay != hihatDecay){
-      this->hihatDecay = hihatDecay;
-      this->hihat->setDecay(hihatDecay);
-    }
-
-    // Snare Tune
-    byte snareTune = map(
-      this->device->getInput(
-      this->snareTuneInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->snareTune != snareTune){
-      this->snareTune = snareTune;
-      this->snare->setPitch(snareTune);
-    }
-    
-    // Snare Color
-    byte snareColor = map(
-      this->device->getInput(
-      this->snareColorInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->snareColor != snareColor){
-      this->snareColor = snareColor;
-      this->snare->setTone(snareColor);
-    } 
-
-    // Snare Decay
-    byte snareDecay = map(
-      this->device->getInput(
-      this->snareDecayInputIndex), 
-      this->device->getAnalogMinValue(), 
-      this->device->getAnalogMaxValue(),
-      0,
-      255
-    );
-
-    if(this->snareDecay != snareDecay){
-      this->snareDecay = snareDecay;
-      this->snare->setDecay(snareDecay);
-    }
-    
-    this->clockUpdate = 0;
-  }
 }
 
 /**
@@ -282,5 +141,104 @@ inline void DS9::noteOn(byte channel, byte note, byte velocity){
  */
 inline AudioMixer4 * DS9::getOutput(){
   return this->output;
+}
+
+/**
+ * On Tune Change
+ */
+inline void DS9::onTuneChange(byte inputIndex, unsigned int value, int diffToPrevious){
+  byte tune = map(
+    value, 
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue(),
+    0,
+    255
+  );
+    
+  switch(inputIndex){
+    case 0:
+      // Kick
+      getInstance()->kick->setPitch(tune);
+    break;
+    
+    case 1:
+      // Clap
+      getInstance()->snare->setPitch(tune);
+    break;
+
+    case 2:
+      // Hihat
+      getInstance()->hihat->setPitch(tune);
+    break;
+
+    default:
+    break;
+  }
+}
+
+/**
+ * On Color Change
+ */
+inline void DS9::onColorChange(byte inputIndex, unsigned int value, int diffToPrevious){
+  byte color = map(
+    value, 
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue(),
+    0,
+    255
+  );
+
+  switch(inputIndex){
+    case 3:
+      // Kick
+      getInstance()->kick->setTone(color);
+    break;
+    
+    case 4:
+      // Clap
+      getInstance()->snare->setTone(color);
+    break;
+
+    case 5:
+      // Hihat
+      getInstance()->hihat->setTone(color);
+    break;
+
+    default:
+    break;
+  }
+}
+
+/**
+ * On Decay Change
+ */
+inline void DS9::onDecayChange(byte inputIndex, unsigned int value, int diffToPrevious){
+  byte decay = map(
+    value, 
+    getInstance()->device->getAnalogMinValue(), 
+    getInstance()->device->getAnalogMaxValue(),
+    0,
+    255
+  );
+
+  switch(inputIndex){
+    case 6:
+      // Kick
+      getInstance()->kick->setDecay(decay);
+    break;
+    
+    case 7:
+      // Clap
+      getInstance()->snare->setDecay(decay);
+    break;
+
+    case 8:
+      // Hihat
+      getInstance()->hihat->setDecay(decay);
+    break;
+
+    default:
+    break;
+  }
 }
 #endif
